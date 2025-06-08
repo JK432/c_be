@@ -1,0 +1,39 @@
+version: '3'
+services:
+  captchaapi:
+    build:
+      context: ./captchaapi
+      dockerfile: Dockerfile
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/captchaapi/staticfiles/
+      - media_volume:/captchaapi/mediafiles/
+      - /var/certbot/conf:/etc/letsencrypt/:ro
+    expose:
+      - 8000
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - static_volume:/captchaapi/staticfiles/
+      - media_volume:/captchaapi/mediafiles/
+      - ./nginx.conf:/nginx/nginx.conf:ro
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - /var/certbot/conf:/etc/letsencrypt/:rw
+      - /var/certbot/www/:/var/www/certbot/:rw
+    depends_on:
+      - nginx
+
+volumes:
+  static_volume:
+  media_volume:
+
+#docker-compose -f docker-compose.prod.yml run certbot certonly --webroot -w /var/www/certbot -d cbe.jhub.in --email huesolution7@gmail.com --agree-tos --non-interactive
