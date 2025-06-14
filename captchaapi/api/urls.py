@@ -12,6 +12,7 @@ router = routers.DefaultRouter()
 
 router.register(r'version', VersionViewSet, basename='Version')
 router.register(r'user_activity', UserActivityViewSet, basename='UserActivity')
+router.register(r'pip_message', PipMsgViewSet, basename='PipMsg')
 
 urlpatterns = [path('', include(router.urls))]
 urlpatterns += [path('token/', obtain_auth_token, name="login")]

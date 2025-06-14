@@ -1,1 +1,2 @@
 from .user_activity import UserActivitySerializer
+from .pipmessage import PipMsgSerializer
