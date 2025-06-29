@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from api.models import UserActivity
 from api.serializers import UserActivitySerializer
 from django_filters.rest_framework import FilterSet
-
+from django.conf import settings
 
 class UserActivityFilter(FilterSet):
     class Meta:
