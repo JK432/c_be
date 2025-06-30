@@ -9,7 +9,7 @@ import joblib
 from django.conf import settings
 import os
 
-MODEL_PATH = os.path.join(settings.BASE_DIR, 'api', 'ml_models', 'bot_detector_xgb.pkl')
+MODEL_PATH = os.path.join(settings.BASE_DIR, 'api', 'ml_models', '../ml_models/bot_detector_xgb.pkl')
 model = joblib.load(MODEL_PATH)
 
 
