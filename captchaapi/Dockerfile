@@ -2,10 +2,6 @@
 FROM python:alpine3.19
 
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    build-essential cmake && \
-    rm -rf /var/lib/apt/lists/* \
 
 WORKDIR /captchaapi
 
@@ -13,6 +9,9 @@ WORKDIR /captchaapi
 
 ENV PYTHONDOWNWRITEBYTECODE 1
 ENV PYTHONNUNBUFFER 1
+
+RUN apk update && \
+    apk add --no-cache build-base cmake \
 
 # update and  install dependencies
 RUN pip install --upgrade pip
