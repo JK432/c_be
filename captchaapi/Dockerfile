@@ -11,10 +11,11 @@ ENV PYTHONDOWNWRITEBYTECODE 1
 ENV PYTHONNUNBUFFER 1
 
 RUN apk update && \
-    apk add --no-cache build-base cmake \
+    apk add --no-cache build-base cmake
 
-# update and  install dependencies
+# Upgrade pip in a **separate RUN**
 RUN pip install --upgrade pip
+
 COPY ./requirements.txt /api/requirements.txt
 RUN pip install -r /api/requirements.txt
 
